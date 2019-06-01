@@ -1,0 +1,110 @@
+" ============================================================================
+" .vimrc 
+" ============================================================================
+
+" no compatibility to trditional vi
+set nocompatible
+
+" install vim-plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" ----------------------------------------------------------------------------
+" VIM-PLUG BEGIN
+" ----------------------------------------------------------------------------
+call plug#begin('~/.vim/plugged')
+
+" theme
+Plug 'nanotech/jellybeans.vim'
+
+" edit
+Plug 'tpope/vim-commentary'
+Plug 'Valloric/YouCompleteMe', { 'do': 'python3 ./install.py --clang-completer' }
+
+" browsing
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'scrooloose/nerdtree'
+
+" git
+Plug 'airblade/vim-gitgutter' " show git diff of a current file
+Plug 'rhysd/committia.vim' " split windows for git commit
+Plug 'tpope/vim-fugitive' " Gblame
+Plug 'vim-airline/vim-airline' " bottom bar
+Plug 'vim-airline/vim-airline-themes'
+
+" lang
+Plug 'https://gn.googlesource.com/gn', { 'rtp': 'tools/gn/misc/vim' }
+
+call plug#end()
+
+" ----------------------------------------------------------------------------
+" BASIC SETTINGS
+" ----------------------------------------------------------------------------
+
+" set encoding
+language messages en_US.UTF-8
+set langmenu=en_US.UTF-8
+set encoding=utf-8
+
+"English spelling checker.
+setlocal spelllang=en_us
+
+colorscheme jellybeans
+let g:airline_theme='jellybeans'
+
+set autowrite
+set number " show line numbers
+set colorcolumn=80 " keep 80 columns.
+set cursorline " highlight current cursor line
+set hlsearch " highlight search
+set ignorecase " ignore case on search
+set infercase " adjust case on autocomplete
+set scrolloff=5 " cursor offset by lines
+set showmatch " show the matched bracket
+set matchpairs+=<:> " add match pairs
+set linebreak
+
+" tab and indent
+set expandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set smarttab
+set autoindent
+set smartindent
+
+" show tab characters
+set list listchars=tab:»\ ,trail:·
+
+" browse files to open as zsh style
+set wildmenu
+set wildmode=longest:list,full
+
+" TODO: need to check on linux
+"set mouse=c
+
+" remove whitespaces
+autocmd BufWritePre * %s/\s\+$//e
+
+" :W sudo saves the file
+" (useful for handling the permission-denied error)
+command W w !sudo tee % > /dev/null
+
+au FileType gitcommit setl spell
+au FileType make setl ts=4 sw=4 sts=4
+
+
+" ----------------------------------------------------------------------------
+" python
+" ----------------------------------------------------------------------------
+
+" ----------------------------------------------------------------------------
+" KEY MAPPINGS
+" ----------------------------------------------------------------------------
+map <C-n> :NERDTreeToggle<CR>
+map <C-G> :pyf ~/.vim/plugged/gn/tools/gn/misc/vim/gn-format.py<CR>
+

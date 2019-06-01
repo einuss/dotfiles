@@ -1,0 +1,23 @@
+[user]
+    name = Hosung You
+    email = einuss@gmail.com
+#    signingkey = einuss@gmail.com
+[filter "lfs"]
+    clean = git-lfs clean %f
+    smudge = git-lfs smudge %f
+    required = true
+[color]
+    ui = auto
+[core]
+    editor = vim
+    excludesfile = ~/.gitignore
+    precomposeUnicode = true
+#[commit]
+#    gpgsign = true
+[alias]
+    co = checkout
+    cob = checkout -b
+    cp = cherry-pick
+    lg = log --color --graph --pretty=format:'%C(yellow)%ci%Creset %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ai) %C(bold blue)%ae%Creset' --abbrev-commit
+    prev = reset --hard HEAD^
+    s = status

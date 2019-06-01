@@ -1,0 +1,11 @@
+.DS_Store
+
+*.swo
+*.swm
+*.swn
+*.swp
+tags
+1
+
+*.iml 
+.idea/
